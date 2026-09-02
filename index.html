@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOCAK - Konco Cinema Akrab</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kocak: {
+                            bg: '#f5f1e7',
+                            red: '#cc5b43',
+                            teal: '#7cb7a6',
+                            dark: '#1a1816',
+                            darkBg: '#24211e'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['"Fredoka One"', 'cursive'],
+                        body: ['"Nunito"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .film-strip {
+            background-image: repeating-linear-gradient(
+                to right,
+                transparent,
+                transparent 24px,
+                #cc5b43 24px,
+                #cc5b43 28px
+            );
+        }
+        
+        /* Modal Backdrops */
+        #modal-backdrop, #video-backdrop {
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="bg-kocak-bg font-body text-gray-800 antialiased" id="main-body">
+
+    <nav id="navbar" class="sticky top-0 z-40 bg-kocak-bg border-b-4 border-kocak-red shadow-md transition-colors duration-500">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2 cursor-pointer" onclick="switchTab('pengenalan')">
+                    <i data-lucide="clapperboard" class="w-8 h-8 text-kocak-red"></i>
+                    <span class="font-display text-2xl text-kocak-red tracking-wider mt-1">KOCAK</span>
+                </div>
+                <div class="flex space-x-1 sm:space-x-4">
+                    <button onclick="switchTab('pengenalan')" id="tab-pengenalan" class="nav-btn flex items-center px-3 py-2 rounded-md font-bold transition-colors bg-kocak-teal text-white">
+                        <i data-lucide="home" class="w-4 h-4 sm:mr-2"></i>
+                        <span class="hidden sm:inline">Pengenalan</span>
+                    </button>
+                    <button onclick="switchTab('perintis')" id="tab-perintis" class="nav-btn flex items-center px-3 py-2 rounded-md font-bold transition-colors text-kocak-red hover:bg-kocak-red/10">
+                        <i data-lucide="users" class="w-4 h-4 sm:mr-2"></i>
+                        <span class="hidden sm:inline">Perintis</span>
+                    </button>
+                    <button onclick="switchTab('koleksi')" id="tab-koleksi" class="nav-btn flex items-center px-3 py-2 rounded-md font-bold transition-colors text-kocak-red hover:bg-kocak-red/10">
+                        <i data-lucide="clapperboard" class="w-4 h-4 sm:mr-2"></i>
+                        <span class="hidden sm:inline">Koleksi Film</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="w-full min-h-screen">
+        
+        <!-- Halaman Pengenalan -->
+        <section id="sec-pengenalan" class="animate-fadeIn max-w-5xl mx-auto py-12 px-4 space-y-16">
+            <div class="text-center space-y-6">
+                <h1 class="font-display text-5xl md:text-7xl text-kocak-red drop-shadow-sm uppercase">Selamat Datang</h1>
+                <div class="inline-block bg-kocak-teal text-white font-display text-3xl md:text-5xl px-8 py-3 rounded-full transform -rotate-2">
+                    KOCAK
+                </div>
+                <p class="font-display text-2xl text-kocak-red tracking-widest mt-4">KONCO CINEMA AKRAB</p>
+            </div>
+
+            <div class="w-full h-8 border-y-4 border-kocak-red film-strip"></div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="bg-kocak-red text-kocak-bg p-8 rounded-3xl shadow-xl transform rotate-1 hover:rotate-0 transition-transform">
+                    <h2 class="font-display text-3xl mb-4">Sejarah & Tujuan</h2>
+                    <p class="text-lg leading-relaxed font-body font-medium">
+                        Isi Sejarah/Tujuan 
+                    </p>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="bg-kocak-teal text-white p-8 rounded-3xl shadow-xl transform -rotate-1 hover:rotate-0 transition-transform">
+                        <h2 class="font-display text-3xl mb-4">Visi Kami</h2>
+                        <p class="text-lg leading-relaxed font-body font-medium">
+                            Isi Visi
+                        </p>
+                    </div>
+                    <div class="border-4 border-kocak-red p-8 rounded-3xl shadow-lg bg-kocak-bg">
+                        <h2 class="font-display text-3xl mb-4 text-kocak-red">Misi Kami</h2>
+                        <ul class="list-disc list-inside space-y-2 text-kocak-red font-body font-bold text-lg">
+                            <li>Isi Misi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Halaman Perintis -->
+        <section id="sec-perintis" class="hidden animate-fadeIn max-w-6xl mx-auto py-12 px-4 space-y-12">
+            <div class="text-center">
+                <h1 class="font-display text-5xl md:text-6xl text-kocak-red mb-4">Dibalik KOCAK</h1>
+                <p class="text-xl text-kocak-teal font-bold font-body">Mengenal wajah-wajah di balik layar komunitas</p>
+            </div>
+            <!-- Container untuk Card Perintis diisi lewat JS -->
+            <div id="perintis-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <!-- Halaman Koleksi Film -->
+        <section id="sec-koleksi" class="hidden animate-fadeIn w-full pb-20">
+            <!-- Hero Film -->
+            <div id="hero-film" class="relative h-[60vh] md:h-[70vh] w-full">
+                <!-- Diisi via JS -->
+            </div>
+
+            <!-- Carousel Kategori -->
+            <div class="px-8 md:px-16 -mt-8 relative z-10 space-y-12">
+                <div>
+                    <h2 class="font-display text-3xl mb-6 text-kocak-teal drop-shadow-md">Rilis Terbaru</h2>
+                    <div id="carousel-terbaru" class="flex overflow-x-auto space-x-6 pb-8 hide-scrollbar scroll-smooth">
+                        <!-- Diisi via JS -->
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="font-display text-3xl mb-6 text-kocak-red drop-shadow-md">Drama & Romansa</h2>
+                    <div id="carousel-drama" class="flex overflow-x-auto space-x-6 pb-8 hide-scrollbar scroll-smooth">
+                        <!-- Diisi via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer" class="py-12 px-4 transition-colors duration-500 bg-kocak-bg border-t-4 border-kocak-red/20 text-kocak-red">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <!-- Brand -->
+            <div class="space-y-4">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="clapperboard" class="w-8 h-8"></i>
+                    <span class="font-display text-2xl tracking-wider mt-1">KOCAK</span>
+                </div>
+                <p class="font-bold opacity-80">Konco Cinema Akrab.<br>Wadah sineas muda berkarya bersama tanpa batas.</p>
+            </div>
+
+            <!-- Lokasi -->
+            <div>
+                <h3 class="font-display text-xl mb-4">Lokasi Basecamp</h3>
+                <div class="flex items-start space-x-2 opacity-80 font-bold">
+                    <i data-lucide="map-pin" class="w-5 h-5 flex-shrink-0 mt-0.5"></i>
+                    <p></p>
+                </div>
+            </div>
+
+            <!-- Jejaring -->
+            <div>
+                <h3 class="font-display text-xl mb-4">Jejaring Komunitas</h3>
+                <ul class="space-y-2 opacity-80 font-bold">
+                    <li><a href="#" class="hover:text-kocak-teal transition-colors flex items-center"><i data-lucide="film" class="w-4 h-4 mr-2"></i> JAFF Community Forum</a></li>
+                    <li><a href="#" class="hover:text-kocak-teal transition-colors flex items-center"><i data-lucide="youtube" class="w-4 h-4 mr-2"></i> KOCAK Konco Sinema Akrab</a></li>
+                </ul>
+            </div>
+
+            <!-- Hubungi Kami -->
+            <div>
+                <h3 class="font-display text-xl mb-4">Hubungi Kami</h3>
+                <ul class="space-y-2 opacity-80 font-bold">
+                    <li class="flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i> koncocinemaakrab@gmail.com</li>
+                    <li class="flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> +62 812-3456-7890 (Name)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center pt-8 border-t-2 border-current/10 font-bold">
+            <p>© 2026 Konco Cinema Akrab. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Detail Film -->
+    <div id="modal-backdrop" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 hidden opacity-0 transition-opacity duration-300">
+        <div id="modal-content" class="bg-kocak-bg rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl relative border-4 border-kocak-red flex flex-col md:flex-row transform scale-95 transition-transform duration-300">
+            
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 bg-kocak-red text-white p-2 rounded-full hover:bg-kocak-teal transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="md:w-1/2 relative h-64 md:h-auto">
+                <img id="modal-poster" src="" alt="Poster" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:hidden"></div>
+            </div>
+
+            <div class="md:w-1/2 p-8 md:p-10 max-h-[80vh] overflow-y-auto text-gray-800">
+                <h2 id="modal-title" class="font-display text-4xl text-kocak-red mb-2 leading-none"></h2>
+                
+                <div class="flex flex-wrap gap-2 mb-6 mt-4">
+                    <span id="modal-genre" class="bg-kocak-teal text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm"></span>
+                    <span id="modal-sekolah" class="bg-kocak-red/10 text-kocak-red border border-kocak-red px-3 py-1 rounded-full text-sm font-bold shadow-sm"></span>
+                </div>
+
+                <p id="modal-sinopsis" class="font-body text-lg leading-relaxed mb-8 font-medium"></p>
+
+                <div class="space-y-4 mb-8">
+                    <div>
+                        <span class="text-kocak-teal font-display text-xl block mb-1">Sutradara</span>
+                        <p id="modal-sutradara" class="font-body font-bold text-kocak-red"></p>
+                    </div>
+                    
+                    <div>
+                        <span class="text-kocak-teal font-display text-xl block mb-1">Daftar Kru</span>
+                        <ul id="modal-crew" class="font-body font-medium space-y-1"></ul>
+                    </div>
+                </div>
+
+                <button id="btn-tonton" class="w-full bg-kocak-red hover:bg-[#a64733] text-white font-display text-xl py-4 rounded-xl flex items-center justify-center transition-colors shadow-lg">
+                    <i data-lucide="play" class="w-6 h-6 mr-2 fill-current"></i>
+                    Tonton Sekarang
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div id="video-backdrop" class="fixed inset-0 z-[60] flex items-center justify-center p-2 bg-black/95 hidden opacity-0 transition-opacity duration-300">
+        <div class="relative w-full max-w-5xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border-2 border-kocak-red/50">
+            <button onclick="closeVideo()" class="absolute top-4 right-4 z-10 bg-kocak-red/80 hover:bg-kocak-red text-white p-2 rounded-full transition-colors backdrop-blur-md">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <!-- Iframe for Youtube/Drive Embed -->
+            <iframe id="video-frame" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        // --- MOCK DATA ---
+        const PERINTIS_DATA = [
+            { id: 1, nama: "Your Name", peran: "JobDesk", bio: "Bio", foto: "" },
+            { id: 2, nama: "Your Name", peran: "JobDesk", bio: "Bio", foto: "" },
+            { id: 3, nama: "Your Name", peran: "JobDesk", bio: "Bio", foto: "" }
+        ];
+
+        // Simulasi embed link YouTube dan Google Drive Preview
+        const FILM_DATA = [
+            { id: 101, judul: "Nama Film", sekolah: "Sekolah", sutradara: "Nama Sutradara", genre: "Drama & Romansa", sinopsis: "Sinopsis", crew: ["List Crew"], poster: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80", featured: true, videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" },
+            { id: 102, judul: "Nama Film", sekolah: "Sekolah", sutradara: "Nama Sutradara", genre: "Action", sinopsis: "Sinopsis", crew: ["List Crew"], poster: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80", featured: true, videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" },
+        ];
+
+        // --- DOM ELEMENTS ---
+        const sections = {
+            pengenalan: document.getElementById('sec-pengenalan'),
+            perintis: document.getElementById('sec-perintis'),
+            koleksi: document.getElementById('sec-koleksi')
+        };
+        const tabs = {
+            pengenalan: document.getElementById('tab-pengenalan'),
+            perintis: document.getElementById('tab-perintis'),
+            koleksi: document.getElementById('tab-koleksi')
+        };
+        const body = document.getElementById('main-body');
+        const navbar = document.getElementById('navbar');
+        const footer = document.getElementById('main-footer');
+
+        // --- INITIALIZATION ---
+        function init() {
+            renderPerintis();
+            renderKoleksi();
+            lucide.createIcons();
+        }
+
+        function switchTab(tabId) {
+            // Hide all sections
+            Object.values(sections).forEach(sec => sec.classList.add('hidden'));
+            
+            // Reset Tab styling
+            Object.values(tabs).forEach(tab => {
+                tab.className = "nav-btn flex items-center px-3 py-2 rounded-md font-bold transition-colors text-kocak-red hover:bg-kocak-red/10";
+            });
+
+            // Show active section
+            sections[tabId].classList.remove('hidden');
+            
+            // Set active tab styling
+            tabs[tabId].className = "nav-btn flex items-center px-3 py-2 rounded-md font-bold transition-colors bg-kocak-teal text-white";
+
+            // Theming adjustments for 'Koleksi' (Netflix vibe / Dark mode)
+            if (tabId === 'koleksi') {
+                body.classList.remove('bg-kocak-bg', 'text-gray-800');
+                body.classList.add('bg-kocak-dark', 'text-kocak-bg');
+                
+                navbar.classList.remove('bg-kocak-bg');
+                navbar.classList.add('bg-kocak-dark');
+
+                footer.classList.remove('bg-kocak-bg', 'text-kocak-red', 'border-kocak-red/20');
+                footer.classList.add('bg-kocak-darkBg', 'text-gray-400', 'border-white/10');
+            } else {
+                body.classList.remove('bg-kocak-dark', 'text-kocak-bg');
+                body.classList.add('bg-kocak-bg', 'text-gray-800');
+
+                navbar.classList.remove('bg-kocak-dark');
+                navbar.classList.add('bg-kocak-bg');
+
+                footer.classList.remove('bg-kocak-darkBg', 'text-gray-400', 'border-white/10');
+                footer.classList.add('bg-kocak-bg', 'text-kocak-red', 'border-kocak-red/20');
+            }
+        }
+
+        function renderPerintis() {
+            const container = document.getElementById('perintis-container');
+            container.innerHTML = PERINTIS_DATA.map(p => `
+                <div class="group flex flex-col bg-white rounded-[2rem] overflow-hidden shadow-xl border-4 border-kocak-red hover:-translate-y-2 transition-all duration-300">
+                    <div class="aspect-square w-full overflow-hidden relative border-b-4 border-kocak-red">
+                        <img src="${p.foto}" alt="${p.nama}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <div class="absolute inset-0 bg-kocak-red/20 group-hover:bg-transparent transition-colors duration-300"></div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow bg-kocak-bg">
+                        <h3 class="font-display text-3xl text-kocak-red mb-1">${p.nama}</h3>
+                        <span class="inline-block bg-kocak-teal text-white font-bold px-3 py-1 rounded-full text-sm w-max mb-4">${p.peran}</span>
+                        <p class="text-kocak-red font-body font-medium leading-relaxed">"${p.bio}"</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderKoleksi() {
+            const featuredFilm = FILM_DATA.find(f => f.featured) || FILM_DATA[0];
+            
+            // Render Hero
+            document.getElementById('hero-film').innerHTML = `
+                <div class="absolute inset-0">
+                    <img src="${featuredFilm.poster}" alt="${featuredFilm.judul}" class="w-full h-full object-cover opacity-60" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-kocak-dark via-kocak-dark/40 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-kocak-dark via-kocak-dark/60 to-transparent"></div>
+                </div>
+                <div class="absolute bottom-0 left-0 w-full p-8 md:p-16 max-w-4xl">
+                    <span class="text-kocak-teal font-bold tracking-widest uppercase mb-2 block drop-shadow-md">Film Sorotan KOCAK</span>
+                    <h1 class="font-display text-5xl md:text-8xl text-white drop-shadow-lg mb-4 leading-none">${featuredFilm.judul}</h1>
+                    <p class="text-gray-300 font-body text-lg md:text-xl line-clamp-3 mb-6 max-w-2xl drop-shadow-md">${featuredFilm.sinopsis}</p>
+                    <button onclick='openModal(${featuredFilm.id})' class="bg-kocak-red hover:bg-[#a64733] text-white font-bold py-3 px-6 rounded-lg flex items-center transition-colors shadow-lg">
+                        <i data-lucide="info" class="w-5 h-5 mr-2"></i> Detail Film
+                    </button>
+                </div>
+            `;
+
+            // Render Carousels
+            const renderCard = (film, subtitle) => `
+                <div onclick='openModal(${film.id})' class="flex-none w-48 md:w-64 cursor-pointer group">
+                    <div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-xl border-2 border-transparent group-hover:border-kocak-red transition-all duration-300 transform group-hover:scale-105">
+                        <img src="${film.poster}" alt="${film.judul}" class="w-full h-full object-cover"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-kocak-red/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                            <span class="text-white font-bold text-sm truncate">${subtitle}</span>
+                            <h3 class="text-white font-display text-xl leading-tight truncate">${film.judul}</h3>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('carousel-terbaru').innerHTML = FILM_DATA.map(f => renderCard(f, f.sekolah)).join('');
+            document.getElementById('carousel-drama').innerHTML = FILM_DATA.filter(f => f.genre.includes("Drama")).map(f => renderCard(f, f.sutradara)).join('');
+        }
+
+        function openModal(filmId) {
+            const film = FILM_DATA.find(f => f.id === filmId);
+            if(!film) return;
+
+            document.getElementById('modal-poster').src = film.poster;
+            document.getElementById('modal-title').innerText = film.judul;
+            document.getElementById('modal-genre').innerText = film.genre;
+            document.getElementById('modal-sekolah').innerText = film.sekolah;
+            document.getElementById('modal-sinopsis').innerText = film.sinopsis;
+            document.getElementById('modal-sutradara').innerText = film.sutradara;
+            document.getElementById('modal-crew').innerHTML = film.crew.map(c => `<li class="flex items-center"><div class="w-1.5 h-1.5 bg-kocak-red rounded-full mr-2"></div>${c}</li>`).join('');
+            
+            // Set up Play Button Action
+            const btnTonton = document.getElementById('btn-tonton');
+            btnTonton.onclick = () => {
+                closeModal(); // Tutup modal detail
+                setTimeout(() => playVideo(film.videoUrl), 300); // Buka video player setelah delay sedikit
+            };
+
+            const backdrop = document.getElementById('modal-backdrop');
+            const content = document.getElementById('modal-content');
+            backdrop.classList.remove('hidden');
+            
+            // Trigger animation
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeModal() {
+            const backdrop = document.getElementById('modal-backdrop');
+            const content = document.getElementById('modal-content');
+            
+            backdrop.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+            }, 300);
+        }
+
+        function playVideo(url) {
+            const videoBackdrop = document.getElementById('video-backdrop');
+            const iframe = document.getElementById('video-frame');
+            
+            iframe.src = url;
+            videoBackdrop.classList.remove('hidden');
+            
+            setTimeout(() => {
+                videoBackdrop.classList.remove('opacity-0');
+            }, 10);
+        }
+
+        function closeVideo() {
+            const videoBackdrop = document.getElementById('video-backdrop');
+            const iframe = document.getElementById('video-frame');
+            
+            videoBackdrop.classList.add('opacity-0');
+            
+            setTimeout(() => {
+                videoBackdrop.classList.add('hidden');
+                iframe.src = ""; // Matikan video dengan mengosongkan source iframe
+            }, 300);
+        }
+
+        // Run Initialization
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
