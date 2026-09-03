@@ -122,49 +122,28 @@
             <div class="w-full h-8 border-y-4 border-kocak-red film-strip"></div>
 
             
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-<div class="space-y-6">
-    <div class="bg-kocak-red text-kocak-bg p-8 rounded-3xl shadow-xl transform rotate-1 hover:rotate-0 transition-transform">
-        <h2 class="font-display text-3xl mb-4">Sejarah</h2>
-        <p class="text-lg leading-relaxed font-body font-medium mb-6 line-clamp-3">
-            KOCAK lahir dari keresahan pelajar film di Jogjakarta terhadap karya yang sering kali berhenti sebagai bagian dari proses belajar di sekolah...
-        </p>
-        <button onclick="openTextModal('sejarah')" class="inline-flex items-center text-sm font-bold bg-kocak-bg text-kocak-red px-5 py-2.5 rounded-full hover:bg-white transition-colors shadow-md">
-            Lihat Selengkapnya <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
-        </button>
+<div class="grid md:grid-cols-2 gap-12 items-center">
+    
+    <!-- Card Sejarah -->
+    <div onclick="openTextModal('sejarah')" class="cursor-pointer bg-kocak-red text-kocak-bg p-10 rounded-3xl shadow-xl transform rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 flex justify-center items-center min-h-[180px]">
+        <h2 class="font-display text-4xl md:text-5xl drop-shadow-sm">Sejarah</h2>
     </div>
 
-    <div class="bg-kocak-red text-kocak-bg p-8 rounded-3xl shadow-xl transform -rotate-1 hover:rotate-0 transition-transform">
-        <h2 class="font-display text-3xl mb-4">Tujuan</h2>
-        <p class="text-lg leading-relaxed font-body font-medium mb-6 line-clamp-3">
-            KOCAK bertujuan menghadirkan ruang bagi pelajar film di Jogjakarta untuk mengapresiasi karya, belajar, bertemu, dan berjejaring...
-        </p>
-        <button onclick="openTextModal('tujuan')" class="inline-flex items-center text-sm font-bold bg-kocak-bg text-kocak-red px-5 py-2.5 rounded-full hover:bg-white transition-colors shadow-md">
-            Lihat Selengkapnya <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
-        </button>
+    <!-- Card Tujuan -->
+    <div onclick="openTextModal('tujuan')" class="cursor-pointer bg-kocak-red text-kocak-bg p-10 rounded-3xl shadow-xl transform -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 flex justify-center items-center min-h-[180px]">
+        <h2 class="font-display text-4xl md:text-5xl drop-shadow-sm">Tujuan</h2>
     </div>
-</div>
-                
-                <div class="space-y-6">
-    <div class="bg-kocak-teal text-white p-8 rounded-3xl shadow-xl transform -rotate-1 hover:rotate-0 transition-transform">
-        <h2 class="font-display text-3xl mb-4">Visi Kami</h2>
-        <p class="text-lg leading-relaxed font-body font-medium mb-6 line-clamp-3">
-            MEWUJUDKAN EKOSISTEM PELAJAR FILM DI YOGYAKARTA YANG KOLABORATIF, APRESIATIF, DAN TERUS BERKEMBANG BERSAMA.
-        </p>
-        <button onclick="openTextModal('visi')" class="inline-flex items-center text-sm font-bold bg-white text-kocak-teal px-5 py-2.5 rounded-full hover:bg-gray-100 transition-colors shadow-md">
-            Lihat Selengkapnya <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
-        </button>
+    
+    <!-- Card Visi -->
+    <div onclick="openTextModal('visi')" class="cursor-pointer bg-kocak-teal text-white p-10 rounded-3xl shadow-xl transform -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 flex justify-center items-center min-h-[180px]">
+        <h2 class="font-display text-4xl md:text-5xl drop-shadow-sm">Visi Kami</h2>
     </div>
 
-    <div class="border-4 border-kocak-red p-8 rounded-3xl shadow-lg bg-kocak-bg">
-        <h2 class="font-display text-3xl mb-4 text-kocak-red">Misi Kami</h2>
-        <p class="text-lg leading-relaxed font-body font-medium mb-6 line-clamp-3 text-kocak-red">
-            Misi kami adalah menjadi wadah kolaborasi, menyelenggarakan ruang apresiasi karya, dan memfasilitasi pembelajaran...
-        </p>
-        <button onclick="openTextModal('misi')" class="inline-flex items-center text-sm font-bold bg-kocak-red text-white px-5 py-2.5 rounded-full hover:bg-[#a64733] transition-colors shadow-md">
-            Lihat Selengkapnya <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
-        </button>
+    <!-- Card Misi -->
+    <div onclick="openTextModal('misi')" class="cursor-pointer border-4 border-kocak-red p-10 rounded-3xl shadow-lg bg-kocak-bg transform rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 flex justify-center items-center min-h-[180px]">
+        <h2 class="font-display text-4xl md:text-5xl text-kocak-red drop-shadow-sm">Misi Kami</h2>
     </div>
+
 </div>
             </div>
 
@@ -265,8 +244,8 @@
             <div>
                 <h3 class="font-display text-xl mb-4">Jejaring Komunitas</h3>
                 <ul class="space-y-2 opacity-80 font-bold">
-                    <li><a href="#" class="hover:text-kocak-teal transition-colors flex items-center"><i data-lucide="film" class="w-4 h-4 mr-2"></i> JAFF Community Forum</a></li>
-                    <li><a href="#" class="hover:text-kocak-teal transition-colors flex items-center"><i data-lucide="youtube" class="w-4 h-4 mr-2"></i> KOCAK Konco Sinema Akrab</a></li>
+                    <li><a href="#" class="hover:text-kocak-teal transition-colors flex items-center"><i data-lucide="" class="w-4 h-4 mr-2"></i> Community Forum Jogja-NETPAC Asian Film Festival</a></li>
+                    <li><a href="#" class="hover:text-kocak-teal transition-colors flex items-center"><i data-lucide="" class="w-4 h-4 mr-2"></i> KOnco Cinema AKrab</a></li>
                 </ul>
             </div>
 
