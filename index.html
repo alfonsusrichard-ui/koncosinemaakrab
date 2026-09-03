@@ -138,23 +138,26 @@
 </div>
                 
                 <div class="space-y-6">
-                    <div class="bg-kocak-teal text-white p-8 rounded-3xl shadow-xl transform -rotate-1 hover:rotate-0 transition-transform">
-                        <h2 class="font-display text-3xl mb-4">Visi Kami</h2>
-                        <p class="text-lg leading-relaxed font-body font-medium">
-                            MEWUJUDKAN EKOSISTEM PELAJAR FILM DI YOGYAKATYA YANG KOLABORATIF, APRESIATIF, DAN TERUS BERKEMBANG BERSAMA.
-                        </p>
-                    </div>
-                    <div class="border-4 border-kocak-red p-8 rounded-3xl shadow-lg bg-kocak-bg">
-                        <h2 class="font-display text-3xl mb-4 text-kocak-red">Misi Kami</h2>
-                        <ul class="list-disc list-inside space-y-2 text-kocak-red font-body font-bold text-lg">
-                            <li> MENJADI WADAH KOLABORASI ANTAR PELAJAR FILM DI YOGYAKARTA.</li>
-                            <li>MENYELENGGARAKAN RUANG APRESIASI KARYA MELALUI SCREENING DAN DISKUSI.</li>
-                            <li>MEMFASILITASI PEMBELAJARAN MELALUI WORKSHOP, BEDAH KARYA, DAN KEGIATAN EDUKATIF.</li>
-                            <li>MEMBANGUN JEJARING ANTARA PELAJAR FILM, SEKOLAH, KOMUNITAS, DAN PELAKU INDUSTRI.</li>
-                            <li>MENDORONG PELAJAR UNTUK TERUS BERKARYA DAN MENGHASILKAN KARYA YANG MEMILIKI RUANG UNTUK DIPUBLIKASIKAN.</li>
-                        </ul>
-                    </div>
-                </div>
+    <div class="bg-kocak-teal text-white p-8 rounded-3xl shadow-xl transform -rotate-1 hover:rotate-0 transition-transform">
+        <h2 class="font-display text-3xl mb-4">Visi Kami</h2>
+        <p class="text-lg leading-relaxed font-body font-medium mb-6 line-clamp-3">
+            MEWUJUDKAN EKOSISTEM PELAJAR FILM DI YOGYAKARTA YANG KOLABORATIF, APRESIATIF, DAN TERUS BERKEMBANG BERSAMA.
+        </p>
+        <button onclick="openTextModal('visi')" class="inline-flex items-center text-sm font-bold bg-white text-kocak-teal px-5 py-2.5 rounded-full hover:bg-gray-100 transition-colors shadow-md">
+            Lihat Selengkapnya <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+        </button>
+    </div>
+
+    <div class="border-4 border-kocak-red p-8 rounded-3xl shadow-lg bg-kocak-bg">
+        <h2 class="font-display text-3xl mb-4 text-kocak-red">Misi Kami</h2>
+        <p class="text-lg leading-relaxed font-body font-medium mb-6 line-clamp-3 text-kocak-red">
+            Misi kami adalah menjadi wadah kolaborasi, menyelenggarakan ruang apresiasi karya, dan memfasilitasi pembelajaran...
+        </p>
+        <button onclick="openTextModal('misi')" class="inline-flex items-center text-sm font-bold bg-kocak-red text-white px-5 py-2.5 rounded-full hover:bg-[#a64733] transition-colors shadow-md">
+            Lihat Selengkapnya <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+        </button>
+    </div>
+</div>
             </div>
 
 <!-- START: Jejak Screening & Dokumentasi -->
@@ -370,9 +373,9 @@ const INFO_DATA = {
     sejarah: {
         title: "Sejarah KOCAK",
         body: `
-            <p>KOCAK (KOnco Cinema AKrab) lahir dari keresahan pelajar film di Jogjakarta terhadap karya yang sering kali berhenti sebagai bagian dari proses belajar di sekolah. Karya film yang telah dibuat sering kali hanya dinikmati oleh para pembuatnya dan belum memiliki ruang yang cukup untuk dilihat serta diapresiasi oleh pelajar lainnya. Berangkat dari kebutuhan tersebut, KOCAK hadir sebagai wadah minat, bakat, dan pertemuan pelajar melalui kegiatan apresiasi karya serta pertukaran pengalaman dalam bidang perfilman.</p>
-            <p>KOCAK diinisiasi oleh divisi Community Forum Jogja-NETPAC Asian Film Festival-Yayasan Sinema Yogyakarta sebagai ruang jejaring antarpelajar di Jogjakarta. KOCAK dibangun untuk menjadi ruang yang dekat dengan kebutuhan dan pengalaman pelajar film—tempat untuk bertemu, berbagi, belajar, membangun relasi, dan membuka kesempatan untuk berkolaborasi.</p>
-            <p>Dalam perjalanannya, KOCAK ingin menghadirkan ruang yang terbuka bagi pelajar film di Jogjakarta untuk terus tumbuh dan berkarya bersama. Karena itu, KOCAK dibangun oleh pelajar dan ditujukan untuk pelajar Jogjakarta.</p>
+            <p>KOCAK (KOnco Cinema AKrab) lahir dari keresahan pelajar film di Jogjakarta terhadap karya yang sering kali berhenti sebagai bagian dari proses belajar di sekolah...</p>
+            <p>KOCAK diinisiasi oleh divisi Community Forum Jogja-NETPAC Asian Film Festival-Yayasan Sinema Yogyakarta...</p>
+            <p>Dalam perjalanannya, KOCAK ingin menghadirkan ruang yang terbuka bagi pelajar film di Jogjakarta untuk terus tumbuh dan berkarya bersama...</p>
         `
     },
     tujuan: {
@@ -382,7 +385,29 @@ const INFO_DATA = {
             <p>Dalam jangka panjang, Komunitas ini diharapkan dapat menjadi ruang yang mendorong pelajar untuk terus berkarya, berkembang, dan menciptakan karya bersama, sekaligus menjadi bagian dari proses lahirnya sineas-sineas baru di Jogjakarta.</p>
         `
     },
-    // TAMBAHKAN DATA SCREENING DI SINI
+    // TAMBAHAN BARU: VISI DAN MISI
+    visi: {
+        title: "Visi Kami",
+        body: `
+            <div class="text-center p-6 bg-kocak-teal/10 rounded-2xl border-2 border-kocak-teal mt-4">
+                <p class="font-display text-2xl md:text-3xl text-kocak-teal leading-relaxed">
+                    "MEWUJUDKAN EKOSISTEM PELAJAR FILM DI YOGYAKARTA YANG KOLABORATIF, APRESIATIF, DAN TERUS BERKEMBANG BERSAMA."
+                </p>
+            </div>
+        `
+    },
+    misi: {
+        title: "Misi Kami",
+        body: `
+            <ul class="list-disc list-inside space-y-4 font-bold text-gray-700 mt-2">
+                <li>Menjadi wadah kolaborasi antar pelajar film di Yogyakarta.</li>
+                <li>Menyelenggarakan ruang apresiasi karya melalui screening dan diskusi.</li>
+                <li>Memfasilitasi pembelajaran melalui workshop, bedah karya, dan kegiatan edukatif.</li>
+                <li>Membangun jejaring antara pelajar film, sekolah, komunitas, dan pelaku industri.</li>
+                <li>Mendorong pelajar untuk terus berkarya dan menghasilkan karya yang memiliki ruang untuk dipublikasikan.</li>
+            </ul>
+        `
+    },
     screening1: {
         title: "Screening 1 - September 2026",
         body: `
