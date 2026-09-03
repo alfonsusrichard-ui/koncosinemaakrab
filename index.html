@@ -74,10 +74,13 @@
     <nav id="navbar" class="sticky top-0 z-40 bg-kocak-bg border-b-4 border-kocak-red shadow-md transition-colors duration-500">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center space-x-2 cursor-pointer" onclick="switchTab('pengenalan')">
-                    <i data-lucide="clapperboard" class="w-8 h-8 text-kocak-red"></i>
-                    <span class="font-display text-2xl text-kocak-red tracking-wider mt-1">KOCAK</span>
-                </div>
+<div class="flex items-center space-x-2 cursor-pointer" onclick="switchTab('pengenalan')">
+    <!-- Ganti icon Lucide dengan tag img -->
+    <img src="KOCAK_logo 02.png" alt="Logo KOCAK" class="w-auto h-9 object-contain">
+    
+    <!-- Hapus baris <span> di bawah ini JIKA gambar PNG-mu sudah memiliki teks KOCAK di dalamnya -->
+    <span class="font-display text-2xl text-kocak-red tracking-wider mt-1">KOCAK</span>
+</div>
                 <div class="flex space-x-1 sm:space-x-4">
                     <button onclick="switchTab('pengenalan')" id="tab-pengenalan" class="nav-btn flex items-center px-3 py-2 rounded-md font-bold transition-colors bg-kocak-teal text-white">
                         <i data-lucide="home" class="w-4 h-4 sm:mr-2"></i>
@@ -175,10 +178,10 @@
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <!-- Brand -->
             <div class="space-y-4">
-                <div class="flex items-center space-x-2">
-                    <i data-lucide="clapperboard" class="w-8 h-8"></i>
-                    <span class="font-display text-2xl tracking-wider mt-1">KOCAK</span>
-                </div>
+<div class="flex items-center space-x-2">
+    <img src="KOCAK_logo 02.png" alt="Logo KOCAK" class="w-auto h-8 object-contain">
+    <span class="font-display text-2xl tracking-wider mt-1">KOCAK</span>
+</div>
                 <p class="font-bold opacity-80">Konco Cinema Akrab.<br>Wadah sineas muda berkarya bersama tanpa batas.</p>
             </div>
 
@@ -187,7 +190,7 @@
                 <h3 class="font-display text-xl mb-4">Lokasi Basecamp</h3>
                 <div class="flex items-start space-x-2 opacity-80 font-bold">
                     <i data-lucide="map-pin" class="w-5 h-5 flex-shrink-0 mt-0.5"></i>
-                    <p></p>
+                    <p>Jl. Nyi Pembayun No.20, RT.22/RW.05, Prenggan, Kec. Kotagede, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55172</p>
                 </div>
             </div>
 
