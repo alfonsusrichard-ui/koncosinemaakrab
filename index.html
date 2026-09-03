@@ -63,10 +63,10 @@
             );
         }
         
-        /* Modal Backdrops */
-        #modal-backdrop, #video-backdrop {
-            backdrop-filter: blur(4px);
-        }
+/* Modal Backdrops */
+#modal-backdrop, #video-backdrop, #text-modal-backdrop {
+    backdrop-filter: blur(4px);
+}
     </style>
 </head>
 <body class="bg-kocak-bg font-body text-gray-800 antialiased" id="main-body">
@@ -113,29 +113,85 @@
 
             <div class="w-full h-8 border-y-4 border-kocak-red film-strip"></div>
 
+            
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="bg-kocak-red text-kocak-bg p-8 rounded-3xl shadow-xl transform rotate-1 hover:rotate-0 transition-transform">
-                    <h2 class="font-display text-3xl mb-4">Sejarah & Tujuan</h2>
-                    <p class="text-lg leading-relaxed font-body font-medium">
-                        Isi Sejarah/Tujuan 
-                    </p>
-                </div>
+<div class="space-y-6">
+    <div class="bg-kocak-red text-kocak-bg p-8 rounded-3xl shadow-xl transform rotate-1 hover:rotate-0 transition-transform">
+        <h2 class="font-display text-3xl mb-4">Sejarah</h2>
+        <p class="text-lg leading-relaxed font-body font-medium mb-6 line-clamp-3">
+            KOCAK lahir dari keresahan pelajar film di Jogjakarta terhadap karya yang sering kali berhenti sebagai bagian dari proses belajar di sekolah...
+        </p>
+        <button onclick="openTextModal('sejarah')" class="inline-flex items-center text-sm font-bold bg-kocak-bg text-kocak-red px-5 py-2.5 rounded-full hover:bg-white transition-colors shadow-md">
+            Lihat Selengkapnya <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+        </button>
+    </div>
+
+    <div class="bg-kocak-red text-kocak-bg p-8 rounded-3xl shadow-xl transform -rotate-1 hover:rotate-0 transition-transform">
+        <h2 class="font-display text-3xl mb-4">Tujuan</h2>
+        <p class="text-lg leading-relaxed font-body font-medium mb-6 line-clamp-3">
+            KOCAK bertujuan menghadirkan ruang bagi pelajar film di Jogjakarta untuk mengapresiasi karya, belajar, bertemu, dan berjejaring...
+        </p>
+        <button onclick="openTextModal('tujuan')" class="inline-flex items-center text-sm font-bold bg-kocak-bg text-kocak-red px-5 py-2.5 rounded-full hover:bg-white transition-colors shadow-md">
+            Lihat Selengkapnya <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+        </button>
+    </div>
+</div>
                 
                 <div class="space-y-6">
                     <div class="bg-kocak-teal text-white p-8 rounded-3xl shadow-xl transform -rotate-1 hover:rotate-0 transition-transform">
                         <h2 class="font-display text-3xl mb-4">Visi Kami</h2>
                         <p class="text-lg leading-relaxed font-body font-medium">
-                            Isi Visi
+                            MEWUJUDKAN EKOSISTEM PELAJAR FILM DI YOGYAKATYA YANG KOLABORATIF, APRESIATIF, DAN TERUS BERKEMBANG BERSAMA.
                         </p>
                     </div>
                     <div class="border-4 border-kocak-red p-8 rounded-3xl shadow-lg bg-kocak-bg">
                         <h2 class="font-display text-3xl mb-4 text-kocak-red">Misi Kami</h2>
                         <ul class="list-disc list-inside space-y-2 text-kocak-red font-body font-bold text-lg">
-                            <li>Isi Misi</li>
+                            <li> MENJADI WADAH KOLABORASI ANTAR PELAJAR FILM DI YOGYAKARTA.</li>
+                            <li>MENYELENGGARAKAN RUANG APRESIASI KARYA MELALUI SCREENING DAN DISKUSI.</li>
+                            <li>MEMFASILITASI PEMBELAJARAN MELALUI WORKSHOP, BEDAH KARYA, DAN KEGIATAN EDUKATIF.</li>
+                            <li>MEMBANGUN JEJARING ANTARA PELAJAR FILM, SEKOLAH, KOMUNITAS, DAN PELAKU INDUSTRI.</li>
+                            <li>MENDORONG PELAJAR UNTUK TERUS BERKARYA DAN MENGHASILKAN KARYA YANG MEMILIKI RUANG UNTUK DIPUBLIKASIKAN.</li>
                         </ul>
                     </div>
                 </div>
             </div>
+
+<!-- START: Jejak Screening & Dokumentasi -->
+            <div class="mt-20 space-y-10 border-t-4 border-kocak-red/20 pt-16">
+                <div class="text-center space-y-4">
+                    <h2 class="font-display text-4xl md:text-5xl text-kocak-teal">Jejak Screening KOCAK</h2>
+                    <p class="font-body text-lg font-medium text-gray-700 max-w-2xl mx-auto">
+                        KOCAK telah menyelenggarakan ruang apresiasi dan screening di berbagai titik. Berikut adalah potret keseruan apresiasi karya kita bersama!
+                    </p>
+                </div>
+
+                <!-- Grid Foto Dokumentasi -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="dokumentasi-container">
+                    
+                    <!-- Foto Dokumentasi 1 -->
+                    <div onclick="openTextModal('screening1')" class="group relative aspect-video rounded-3xl overflow-hidden shadow-xl border-4 border-kocak-red cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80" alt="Screening 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-kocak-dark/90 via-kocak-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+                            <div>
+                                <span class="bg-kocak-teal text-white text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">September 2026</span>
+                                <h3 class="text-white font-display text-xl leading-tight">Screening 1</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Placeholder Foto -->
+                    <div class="group relative aspect-video rounded-3xl overflow-hidden shadow-md border-4 border-dashed border-kocak-red/40 bg-kocak-red/5 flex items-center justify-center hover:bg-kocak-red/10 transition-colors">
+                        <div class="text-center text-kocak-red/60 group-hover:text-kocak-red transition-colors">
+                            <i data-lucide="camera" class="w-10 h-10 mx-auto mb-2"></i>
+                            <span class="font-display text-lg block">Segera Hadir</span>
+                            <span class="font-body text-sm font-medium">Titik screening selanjutnya!</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- END: Jejak Screening & Dokumentasi -->
         </section>
 
         <!-- Halaman Perintis -->
@@ -182,7 +238,7 @@
     <img src="KOCAK_logo 02.png" alt="Logo KOCAK" class="w-auto h-8 object-contain">
     <span class="font-display text-2xl tracking-wider mt-1">KOCAK</span>
 </div>
-                <p class="font-bold opacity-80">Konco Cinema Akrab.<br>Wadah sineas muda berkarya bersama tanpa batas.</p>
+                <p class="font-bold opacity-80">KOnco Cinema AKrab.<br>Dari Pelajar untuk Pelajar Jogjakarta</p>
             </div>
 
             <!-- Lokasi -->
@@ -271,6 +327,15 @@
         </div>
     </div>
 
+    <div id="text-modal-backdrop" class="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/80 hidden opacity-0 transition-opacity duration-300">
+    <div id="text-modal-content" class="bg-kocak-bg rounded-3xl w-full max-w-2xl p-8 md:p-10 relative border-4 border-kocak-red transform scale-95 transition-transform duration-300 shadow-2xl">
+        <button onclick="closeTextModal()" class="absolute top-4 right-4 z-10 bg-kocak-red text-white p-2 rounded-full hover:bg-kocak-teal transition-colors">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <h2 id="text-modal-title" class="font-display text-4xl text-kocak-red mb-6"></h2>
+        <div id="text-modal-body" class="font-body text-lg leading-relaxed text-gray-800 font-medium space-y-4 max-h-[60vh] overflow-y-auto pr-2 hide-scrollbar"></div>
+    </div>
+</div>
     <script>
         // --- MOCK DATA ---
         const PERINTIS_DATA = [
@@ -299,6 +364,67 @@
         const body = document.getElementById('main-body');
         const navbar = document.getElementById('navbar');
         const footer = document.getElementById('main-footer');
+
+// --- DATA TEKS MODAL ---
+const INFO_DATA = {
+    sejarah: {
+        title: "Sejarah KOCAK",
+        body: `
+            <p>KOCAK lahir dari keresahan pelajar film di Jogjakarta terhadap karya yang sering kali berhenti sebagai bagian dari proses belajar di sekolah. Karya film yang telah dibuat sering kali hanya dinikmati oleh para pembuatnya dan belum memiliki ruang yang cukup untuk dilihat serta diapresiasi oleh pelajar lainnya.</p>
+            <p>Berangkat dari kebutuhan tersebut, KOCAK dibangun oleh pelajar sebagai ruang yang dekat dengan kebutuhan dan pengalaman pelajar film di Jogjakarta. KOCAK hadir untuk mempertemukan pelajar, membuka ruang apresiasi, serta menjadi tempat untuk saling terhubung dan berbagi pengalaman dalam proses belajar film.</p>
+        `
+    },
+    tujuan: {
+        title: "Tujuan KOCAK",
+        body: `
+            <p><strong>KOCAK (KOnco Cinema AKrab)</strong> bertujuan menghadirkan ruang bagi pelajar film di Jogjakarta untuk mengapresiasi karya, belajar, bertemu, dan berjejaring dengan pelajar lainnya.</p>
+            <p>Dalam jangka panjang, Komunitas ini diharapkan dapat menjadi ruang yang mendorong pelajar untuk terus berkarya, berkembang, dan menciptakan karya bersama, sekaligus menjadi bagian dari proses lahirnya sineas-sineas baru di Jogjakarta.</p>
+        `
+    },
+    // TAMBAHKAN DATA SCREENING DI SINI
+    screening1: {
+        title: "Screening 1 - September 2026",
+        body: `
+            <p><strong>Apa aja yang kita lakuin?</strong></p>
+            <ul class="list-disc list-inside space-y-2 mt-2">
+                <li>Isinya</li>
+            </ul>
+        `
+    },
+};
+
+// --- FUNGSI MODAL TEKS ---
+function openTextModal(type) {
+    const data = INFO_DATA[type];
+    if (!data) return;
+
+    document.getElementById('text-modal-title').innerHTML = data.title;
+    document.getElementById('text-modal-body').innerHTML = data.body;
+    
+    const backdrop = document.getElementById('text-modal-backdrop');
+    const content = document.getElementById('text-modal-content');
+    
+    backdrop.classList.remove('hidden');
+    // Re-render icon lucide jika ada icon di dalam modal
+    lucide.createIcons(); 
+    
+    setTimeout(() => {
+        backdrop.classList.remove('opacity-0');
+        content.classList.remove('scale-95');
+    }, 10);
+}
+
+function closeTextModal() {
+    const backdrop = document.getElementById('text-modal-backdrop');
+    const content = document.getElementById('text-modal-content');
+    
+    backdrop.classList.add('opacity-0');
+    content.classList.add('scale-95');
+    
+    setTimeout(() => {
+        backdrop.classList.add('hidden');
+    }, 300);
+}
 
         // --- INITIALIZATION ---
         function init() {
