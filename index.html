@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- html2canvas untuk mengubah HTML ke Gambar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -71,6 +73,21 @@
     </style>
 </head>
 <body class="bg-kocak-bg font-body text-gray-800 antialiased" id="main-body">
+
+    <!-- Template Tersembunyi untuk Gambar Share -->
+<div id="share-template" class="fixed -left-[9999px] bg-kocak-bg w-[1080px] h-[1920px] flex flex-col items-center justify-center border-[24px] border-kocak-red p-16" style="font-family: 'Fredoka One', cursive;">
+    <!-- Logo KOCAK -->
+    <img src="KOCAK_logo 02.png" alt="KOCAK" class="h-32 mb-12 object-contain">
+    
+    <!-- Poster Film -->
+    <div class="relative w-full max-w-[800px] aspect-[2/3] rounded-3xl overflow-hidden shadow-2xl border-8 border-kocak-teal mb-12">
+        <img id="share-poster" src="" class="w-full h-full object-cover">
+    </div>
+    
+    <!-- Judul Film -->
+    <h1 id="share-title" class="text-7xl text-kocak-red text-center mb-6 drop-shadow-sm"></h1>
+    <p class="font-body text-4xl text-gray-700 font-bold text-center">Tonton sekarang di Web KOCAK!</p>
+</div>
 
     <nav id="navbar" class="sticky top-0 z-40 bg-kocak-bg border-b-4 border-kocak-red shadow-md transition-colors duration-500">
         <div class="max-w-6xl mx-auto px-4">
@@ -298,10 +315,15 @@
                     </div>
                 </div>
 
-                <button id="btn-tonton" class="w-full bg-kocak-red hover:bg-[#a64733] text-white font-display text-xl py-4 rounded-xl flex items-center justify-center transition-colors shadow-lg">
-                    <i data-lucide="play" class="w-6 h-6 mr-2 fill-current"></i>
-                    Tonton Sekarang
-                </button>
+<div class="flex gap-4">
+    <button id="btn-tonton" class="flex-1 bg-kocak-red hover:bg-[#a64733] text-white font-display text-xl py-4 rounded-xl flex items-center justify-center transition-colors shadow-lg">
+        <i data-lucide="play" class="w-6 h-6 mr-2 fill-current"></i>
+        Tonton Sekarang
+    </button>
+    <button id="btn-share" class="bg-kocak-teal hover:bg-[#5a9a88] text-white px-6 rounded-xl flex items-center justify-center transition-colors shadow-lg">
+        <i data-lucide="share-2" class="w-6 h-6"></i>
+    </button>
+</div>
             </div>
         </div>
     </div>
@@ -555,6 +577,9 @@ function closeTextModal() {
                 closeModal(); // Tutup modal detail
                 setTimeout(() => playVideo(film.videoUrl), 300); // Buka video player setelah delay sedikit
             };
+            // Sambungkan tombol share dengan fungsi baru
+const btnShare = document.getElementById('btn-share');
+btnShare.onclick = () => shareFilmToSosmed(filmId);
 
             const backdrop = document.getElementById('modal-backdrop');
             const content = document.getElementById('modal-content');
@@ -602,6 +627,63 @@ function closeTextModal() {
                 iframe.src = ""; // Matikan video dengan mengosongkan source iframe
             }, 300);
         }
+
+        // --- FUNGSI SHARE KE SOSMED ---
+async function shareFilmToSosmed(filmId) {
+    const film = FILM_DATA.find(f => f.id === filmId);
+    if (!film) return;
+
+    // 1. Ubah icon share jadi loading (opsional tapi bagus untuk UX)
+    const btnShare = document.getElementById('btn-share');
+    btnShare.innerHTML = '<i data-lucide="loader-2" class="w-6 h-6 animate-spin"></i>';
+    lucide.createIcons();
+
+    // 2. Isi data ke template rahasia
+    document.getElementById('share-poster').src = film.poster;
+    document.getElementById('share-title').innerText = film.judul;
+
+    const shareElement = document.getElementById('share-template');
+
+    try {
+        // 3. Render HTML jadi Canvas (useCORS penting agar gambar Unsplash/luar bisa dirender)
+        const canvas = await html2canvas(shareElement, { 
+            scale: 1.5, 
+            useCORS: true,
+            backgroundColor: '#f5f1e7' // Warna kocak-bg
+        });
+
+        // 4. Ubah Canvas jadi File Gambar
+        canvas.toBlob(async (blob) => {
+            const fileName = `${film.judul.replace(/\s+/g, '_')}_KOCAK.png`;
+            const file = new File([blob], fileName, { type: 'image/png' });
+
+            // 5. Panggil fitur Share bawaan HP
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    title: `Tonton ${film.judul}`,
+                    text: `Cek film dari ${film.sekolah} ini di koleksi KOCAK! 🎬✨`,
+                    files: [file]
+                });
+            } else {
+                // Fallback: Jika dibuka di PC lama yang tidak support Web Share, otomatis download gambarnya
+                const link = document.createElement('a');
+                link.download = fileName;
+                link.href = canvas.toDataURL();
+                link.click();
+            }
+            
+            // Kembalikan icon share
+            btnShare.innerHTML = '<i data-lucide="share-2" class="w-6 h-6"></i>';
+            lucide.createIcons();
+        }, 'image/png');
+
+    } catch (error) {
+        console.error("Gagal membuat gambar share:", error);
+        alert("Maaf, terjadi kesalahan saat menyiapkan gambar untuk dibagikan.");
+        btnShare.innerHTML = '<i data-lucide="share-2" class="w-6 h-6"></i>';
+        lucide.createIcons();
+    }
+}
 
         // Run Initialization
         window.addEventListener('DOMContentLoaded', init);
