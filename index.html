@@ -201,13 +201,42 @@
             </div>
         </div>
 
-<!-- Placeholder Tunggu Screening Selanjutnya -->
-        <div class="group relative aspect-video rounded-3xl overflow-hidden shadow-sm border-4 border-dashed border-kocak-red/40 bg-kocak-red/5 flex items-center justify-center transition-colors">
-            <div class="text-center text-kocak-red/50">
-                <i data-lucide="hourglass" class="w-12 h-12 mx-auto mb-3 animate-pulse"></i>
-                <span class="font-display text-2xl block drop-shadow-sm">Coming Soon</span>
-                <span class="font-body text-base font-bold mt-1 block opacity-90">Tunggu Screening Selanjutnya!</span>
+<!-- Kotak Countdown Screening Selanjutnya -->
+        <div class="group relative aspect-video rounded-3xl overflow-hidden shadow-lg border-4 border-kocak-teal bg-kocak-bg flex flex-col items-center justify-center p-6 text-center">
+            
+            <span class="bg-kocak-red text-white text-xs font-bold px-3 py-1 rounded-full mb-3 shadow-md animate-pulse">Screening Selanjutnya</span>
+            
+            <!-- Tempat Angka Countdown -->
+            <div id="countdown-timer" class="flex space-x-2 sm:space-x-4 mb-4">
+                <div class="flex flex-col items-center">
+                    <span id="cd-hari" class="font-display text-3xl sm:text-4xl text-kocak-teal leading-none">00</span>
+                    <span class="font-body text-[10px] sm:text-xs font-bold text-gray-500 uppercase">Hari</span>
+                </div>
+                <span class="font-display text-3xl sm:text-4xl text-kocak-red leading-none">:</span>
+                <div class="flex flex-col items-center">
+                    <span id="cd-jam" class="font-display text-3xl sm:text-4xl text-kocak-teal leading-none">00</span>
+                    <span class="font-body text-[10px] sm:text-xs font-bold text-gray-500 uppercase">Jam</span>
+                </div>
+                <span class="font-display text-3xl sm:text-4xl text-kocak-red leading-none">:</span>
+                <div class="flex flex-col items-center">
+                    <span id="cd-menit" class="font-display text-3xl sm:text-4xl text-kocak-teal leading-none">00</span>
+                    <span class="font-body text-[10px] sm:text-xs font-bold text-gray-500 uppercase">Menit</span>
+                </div>
+                <span class="font-display text-3xl sm:text-4xl text-kocak-red leading-none">:</span>
+                <div class="flex flex-col items-center">
+                    <span id="cd-detik" class="font-display text-3xl sm:text-4xl text-kocak-teal leading-none">00</span>
+                    <span class="font-body text-[10px] sm:text-xs font-bold text-gray-500 uppercase">Detik</span>
+                </div>
             </div>
+
+            <!-- Informasi Lokasi -->
+            <h3 class="font-display text-xl text-gray-800 mb-1">BSM Rental Yogyakarta</h3>
+            <p class="font-body text-xs sm:text-sm font-medium text-gray-600 mb-4 line-clamp-2 px-4">Jl. Sukonandi No.3, Semaki, Kec. Umbulharjo, Kota Yogyakarta</p>
+            
+            <!-- Tombol Link Maps -->
+            <a href="https://share.google/dJflXbcTgOWg44L2P" target="_blank" class="inline-flex items-center bg-kocak-teal hover:bg-[#5a9a88] text-white font-bold py-2 px-4 rounded-xl transition-transform transform hover:scale-105 shadow-md text-sm">
+                <i data-lucide="map-pin" class="w-4 h-4 mr-2"></i> Buka di Maps
+            </a>
         </div>
     </div>
 </section>
@@ -379,6 +408,37 @@
         </div>
     </div>
     <script>
+        // --- FUNGSI COUNTDOWN SCREENING ---
+        function startCountdown() {
+            // Atur tanggal target: 18 September 2026, 18:30:00 WIB (Waktu Lokal)
+            const targetDate = new Date("September 18, 2026 18:30:00").getTime();
+
+            // Jalankan setiap 1 detik
+            const interval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                // Kalkulasi waktu untuk hari, jam, menit, detik
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Jika waktu belum habis, tampilkan angkanya
+                if (distance > 0) {
+                    // Tambahkan angka 0 di depan jika angka di bawah 10 (contoh: 09)
+                    document.getElementById("cd-hari").innerText = days.toString().padStart(2, '0');
+                    document.getElementById("cd-jam").innerText = hours.toString().padStart(2, '0');
+                    document.getElementById("cd-menit").innerText = minutes.toString().padStart(2, '0');
+                    document.getElementById("cd-detik").innerText = seconds.toString().padStart(2, '0');
+                } else {
+                    // Jika waktu sudah lewat
+                    clearInterval(interval);
+                    document.getElementById("countdown-timer").innerHTML = `<span class="font-display text-2xl text-kocak-red">ACARA SEDANG BERLANGSUNG!</span>`;
+                }
+            }, 1000);
+        }
+
 const FILM_DATA = [
             { 
                 id: 101, 
@@ -541,9 +601,10 @@ function closeTextModal() {
     }, 300);
 }
 
-        // --- INITIALIZATION ---
+// --- INITIALIZATION ---
         function init() {
             renderKoleksi();
+            startCountdown(); 
             lucide.createIcons();
         }
 
