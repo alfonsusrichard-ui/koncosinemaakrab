@@ -344,10 +344,19 @@
 
         form.addEventListener('submit', function(e) {
             e.preventDefault(); // Mencegah reload halaman
+            
+            // Ambil semua data dari form
+            const formData = new FormData(form);
+            const userData = Object.fromEntries(formData.entries());
 
             // Generate Kode Unik: Format KCK-[6 Karakter Acak]
             const randomString = Math.random().toString(36).substring(2, 8).toUpperCase();
             const uniqueCode = `KCK-${randomString}`;
+
+            // Simpan data pendaftar ke LocalStorage (Simulasi Database)
+            let registeredUsers = JSON.parse(localStorage.getItem('kocak_registered_users')) || {};
+            registeredUsers[uniqueCode] = userData;
+            localStorage.setItem('kocak_registered_users', JSON.stringify(registeredUsers));
 
             // Tampilkan kode ke layar
             uniqueCodeSpan.textContent = uniqueCode;
