@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Temu KOCAK #2</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Tambahan Library untuk generate QR Code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kocak: {
+                            bg: '#f5f1e7',
+                            red: '#cc5b43',
+                            teal: '#7cb7a6',
+                            dark: '#1a1816',
+                            darkBg: '#24211e'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['"Fredoka One"', 'cursive'],
+                        body: ['"Nunito"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Sembunyikan scrollbar tapi tetap bisa scroll */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slideUp {
+            animation: slideUp 0.5s ease-out forwards;
+        }
+
+        /* Custom radio button styling */
+        input[type="radio"]:checked + div {
+            border-color: #cc5b43;
+            background-color: rgba(204, 91, 67, 0.1);
+        }
+        input[type="radio"]:checked + div .radio-inner {
+            background-color: #cc5b43;
+            transform: scale(1);
+        }
+        
+        /* Custom input focus transition */
+        .form-card {
+            transition: all 0.3s ease;
+        }
+        .form-card:focus-within {
+            border-left-width: 8px;
+            border-left-color: #7cb7a6;
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body class="bg-kocak-bg font-body text-gray-800 antialiased min-h-screen py-10 px-4">
+
+    <nav class="max-w-3xl mx-auto mb-8 flex justify-center sm:justify-start">
+        <div class="flex items-center space-x-2">
+            <span class="font-display text-3xl text-kocak-red tracking-wider">KOCAK</span>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto space-y-6" id="main-container">
+        
+        <!-- Header Informasi Acara -->
+        <div class="bg-white rounded-3xl overflow-hidden shadow-lg border-t-[12px] border-kocak-red form-card animate-slideUp">
+            <div class="p-8 sm:p-10">
+                <h1 class="font-display text-4xl sm:text-5xl text-kocak-dark mb-6 leading-tight">PENDAFTARAN TEMU KOCAK #2</h1>
+                
+                <div class="space-y-4 text-gray-700 font-medium leading-relaxed">
+                    <p>
+                        <strong class="text-kocak-red">KOCAK (KOnco Cinema AKrab)</strong> adalah bidang kerja perfilman antarpelajar dibuat untuk calon sineas yang masih duduk di bangku SMP, SMA/SMK/MA-sederajat di Daerah Istimewa Yogyakarta. KOCAK mengajak mengapresiasi karya sinema pelajar yang "dianggurin sayang", sehingga film-film ini bertemu dengan penontonnya.
+                    </p>
+                    <p>
+                        <strong>Temu KOCAK</strong> merupakan acara yang di inisiasi oleh Community Forum JAFF berupa screening film karya pelajar SMP, SMA/SMK/MA-sederajat di Daerah Istimewa Yogyakarta, workshop, games, dan lain sebagainya. Dengan adanya acara ini dapat mempertemukan antar pelajar untuk saling mengenal dan menjadi tempat berjejaring satu sama lain.
+                    </p>
+                    
+                    <div class="bg-kocak-bg p-5 rounded-2xl border-2 border-kocak-teal/30 my-6">
+                        <p class="font-bold text-lg mb-2 text-kocak-teal font-display tracking-wide">Detail Acara:</p>
+                        <ul class="space-y-2">
+                            <li class="flex"><i data-lucide="calendar" class="w-5 h-5 mr-3 text-kocak-red shrink-0"></i> Tanggal: 18 September 2026</li>
+                            <li class="flex"><i data-lucide="clock" class="w-5 h-5 mr-3 text-kocak-red shrink-0"></i> Waktu: 18.30 s.d. 21.00</li>
+                            <li class="flex"><i data-lucide="map-pin" class="w-5 h-5 mr-3 text-kocak-red shrink-0"></i> 
+                                <div>
+                                    Alamat Acara: BSM Rental Yogyakarta<br>
+                                    <span class="text-sm font-normal text-gray-500">Jl. Sukonandi No.3, Semaki, Kec. Umbulharjo, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55166</span><br>
+                                    <a href="https://share.google/AnWC8FBaG2Vce4j8j" target="_blank" class="text-kocak-teal hover:underline text-sm inline-flex items-center mt-1">
+                                        <i data-lucide="external-link" class="w-3 h-3 mr-1"></i> Buka di Maps
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p class="text-sm border-l-4 border-kocak-red pl-3 py-1 bg-red-50 rounded-r-lg">
+                        <strong>Note:</strong><br>
+                        1. Tidak boleh memasuki ruangan lain selain ruang screening.
+                    </p>
+
+                    <p class="mt-6 pt-4 border-t border-gray-200">
+                        <strong>NARAHUBUNG</strong><br>
+                        Finda (+62 85-8635-2398)
+                    </p>
+                </div>
+                
+                <div class="mt-8 pt-4 border-t border-gray-200 flex items-center justify-between text-sm text-gray-500 font-bold">
+                    <span>* Menunjukkan pertanyaan yang wajib diisi</span>
+                </div>
+            </div>
+        </div>
+
+        <form id="registerForm" class="space-y-6">
+            
+            <!-- Pertanyaan 1: Peran -->
+            <div class="bg-white rounded-3xl p-8 shadow-lg border-l-4 border-transparent form-card animate-slideUp" style="animation-delay: 0.1s;">
+                <label class="block mb-4">
+                    <span class="font-display text-xl text-kocak-dark">PILIH YANG SESUAI SAMA KAMU <span class="text-red-500">*</span></span>
+                    <span class="block text-sm text-gray-500 font-medium mt-1">(jika filmmaker maka tuliskan judul film yang akan di tayangkan KOCAK Temu #2 pada kolom yang tersedia)</span>
+                </label>
+                
+                <div class="space-y-3">
+                    <!-- Opsi Radio -->
+                    <label class="relative flex items-center cursor-pointer">
+                        <input type="radio" name="peran" value="FILMMAKER" class="peer sr-only" required onchange="toggleLainnya(false)">
+                        <div class="flex items-center w-full p-3 rounded-xl border-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-400 mr-3 flex items-center justify-center shrink-0">
+                                <div class="radio-inner w-2.5 h-2.5 rounded-full transform scale-0 transition-transform duration-200"></div>
+                            </div>
+                            <span class="font-bold text-gray-700">FILMMAKER</span>
+                        </div>
+                    </label>
+                    <label class="relative flex items-center cursor-pointer">
+                        <input type="radio" name="peran" value="AKTIFIS" class="peer sr-only" onchange="toggleLainnya(false)">
+                        <div class="flex items-center w-full p-3 rounded-xl border-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-400 mr-3 flex items-center justify-center shrink-0">
+                                <div class="radio-inner w-2.5 h-2.5 rounded-full transform scale-0 transition-transform duration-200"></div>
+                            </div>
+                            <span class="font-bold text-gray-700">AKTIFIS</span>
+                        </div>
+                    </label>
+                    <label class="relative flex items-center cursor-pointer">
+                        <input type="radio" name="peran" value="APRESIATOR" class="peer sr-only" onchange="toggleLainnya(false)">
+                        <div class="flex items-center w-full p-3 rounded-xl border-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-400 mr-3 flex items-center justify-center shrink-0">
+                                <div class="radio-inner w-2.5 h-2.5 rounded-full transform scale-0 transition-transform duration-200"></div>
+                            </div>
+                            <span class="font-bold text-gray-700">APRESIATOR</span>
+                        </div>
+                    </label>
+                    <label class="relative flex items-center cursor-pointer">
+                        <input type="radio" name="peran" value="PELAJAR" class="peer sr-only" onchange="toggleLainnya(false)">
+                        <div class="flex items-center w-full p-3 rounded-xl border-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-400 mr-3 flex items-center justify-center shrink-0">
+                                <div class="radio-inner w-2.5 h-2.5 rounded-full transform scale-0 transition-transform duration-200"></div>
+                            </div>
+                            <span class="font-bold text-gray-700">PELAJAR</span>
+                        </div>
+                    </label>
+                    <label class="relative flex items-center cursor-pointer">
+                        <input type="radio" name="peran" value="PENONTON UMUM" class="peer sr-only" onchange="toggleLainnya(false)">
+                        <div class="flex items-center w-full p-3 rounded-xl border-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-400 mr-3 flex items-center justify-center shrink-0">
+                                <div class="radio-inner w-2.5 h-2.5 rounded-full transform scale-0 transition-transform duration-200"></div>
+                            </div>
+                            <span class="font-bold text-gray-700">PENONTON UMUM</span>
+                        </div>
+                    </label>
+                    <label class="relative flex items-center cursor-pointer">
+                        <input type="radio" name="peran" value="Lainnya" id="radio-lainnya" class="peer sr-only" onchange="toggleLainnya(true)">
+                        <div class="flex items-center w-full p-3 rounded-xl border-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-400 mr-3 flex items-center justify-center shrink-0">
+                                <div class="radio-inner w-2.5 h-2.5 rounded-full transform scale-0 transition-transform duration-200"></div>
+                            </div>
+                            <span class="font-bold text-gray-700">Yang lain:</span>
+                            <input type="text" id="input-lainnya" name="peran_lainnya" class="ml-3 flex-1 bg-transparent border-b-2 border-gray-300 focus:border-kocak-teal outline-none py-1 transition-colors disabled:opacity-50" disabled placeholder="Sebutkan...">
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Input Khusus Filmmaker -->
+                <div id="input-filmmaker-container" class="mt-4 hidden animate-slideUp">
+                    <label class="block font-bold text-gray-700 mb-2">Judul Film (Khusus Filmmaker)</label>
+                    <input type="text" id="input-filmmaker" name="judul_film" class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-kocak-teal focus:ring-4 focus:ring-kocak-teal/20 transition-all" placeholder="Masukkan judul film karya kamu">
+                </div>
+            </div>
+
+            <div class="bg-kocak-red rounded-t-3xl p-4 text-center mt-8 animate-slideUp" style="animation-delay: 0.2s;">
+                <span class="font-display text-white text-xl tracking-wider">KOCAK TEMU #2</span>
+            </div>
+            <div class="bg-white rounded-b-3xl p-8 shadow-lg border-l-4 border-transparent form-card mb-6 animate-slideUp" style="animation-delay: 0.2s;">
+                 <p class="font-display text-kocak-teal text-2xl mb-2">SEE YOU ^_^</p>
+                 <p class="text-gray-500 font-medium">Lengkapi data diri kamu di bawah ini ya!</p>
+            </div>
+
+            <!-- Input Teks Biasa -->
+            <div class="bg-white rounded-3xl p-8 shadow-lg border-l-4 border-transparent form-card animate-slideUp" style="animation-delay: 0.3s;">
+                <label class="block font-display text-xl text-kocak-dark mb-4">NAMA LENGKAP <span class="text-red-500">*</span></label>
+                <input type="text" name="nama" required class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-kocak-teal focus:ring-4 focus:ring-kocak-teal/20 transition-all font-medium text-gray-700" placeholder="Jawaban Anda">
+            </div>
+
+            <div class="bg-white rounded-3xl p-8 shadow-lg border-l-4 border-transparent form-card animate-slideUp" style="animation-delay: 0.4s;">
+                <label class="block font-display text-xl text-kocak-dark mb-4">ASAL INSTANSI <span class="text-red-500">*</span></label>
+                <input type="text" name="instansi" required class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-kocak-teal focus:ring-4 focus:ring-kocak-teal/20 transition-all font-medium text-gray-700" placeholder="Sekolah / Kampus / Komunitas">
+            </div>
+
+            <div class="bg-white rounded-3xl p-8 shadow-lg border-l-4 border-transparent form-card animate-slideUp" style="animation-delay: 0.5s;">
+                <label class="block font-display text-xl text-kocak-dark mb-4">NO TELEPON <span class="text-red-500">*</span></label>
+                <input type="tel" name="telepon" required class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-kocak-teal focus:ring-4 focus:ring-kocak-teal/20 transition-all font-medium text-gray-700" placeholder="Contoh: 081234567890">
+            </div>
+
+            <div class="bg-white rounded-3xl p-8 shadow-lg border-l-4 border-transparent form-card animate-slideUp" style="animation-delay: 0.6s;">
+                <label class="block font-display text-xl text-kocak-dark mb-4">MEDIA SOSIAL <span class="text-red-500">*</span></label>
+                <input type="text" name="medsos" required class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-kocak-teal focus:ring-4 focus:ring-kocak-teal/20 transition-all font-medium text-gray-700" placeholder="Username Instagram / Tiktok">
+            </div>
+
+            <div class="bg-white rounded-3xl p-8 shadow-lg border-l-4 border-transparent form-card animate-slideUp" style="animation-delay: 0.7s;">
+                <label class="block font-display text-xl text-kocak-dark mb-4">Saya sepakat dengan note acara <span class="text-red-500">*</span></label>
+                
+                <label class="flex items-center cursor-pointer group w-fit">
+                    <div class="relative flex items-center justify-center w-6 h-6 mr-3">
+                        <input type="checkbox" required class="peer sr-only">
+                        <div class="w-6 h-6 border-2 border-gray-400 rounded-md bg-white peer-checked:bg-kocak-red peer-checked:border-kocak-red transition-all group-hover:border-kocak-red"></div>
+                        <i data-lucide="check" class="absolute w-4 h-4 text-white opacity-0 peer-checked:opacity-100 transition-opacity"></i>
+                    </div>
+                    <span class="font-bold text-gray-700 group-hover:text-kocak-red transition-colors">Ya</span>
+                </label>
+            </div>
+
+            <!-- Tombol Aksi -->
+            <div class="flex justify-between items-center pt-4 pb-12 animate-slideUp" style="animation-delay: 0.8s;">
+                <button type="reset" class="text-kocak-red font-bold hover:underline py-2 px-4 rounded-xl transition-colors">
+                    Kosongkan formulir
+                </button>
+                <button type="submit" class="bg-kocak-red hover:bg-[#a64733] text-white font-display text-xl py-3 px-8 rounded-xl shadow-[0_4px_0_#8c3b28] hover:shadow-[0_2px_0_#8c3b28] hover:translate-y-[2px] transition-all flex items-center">
+                    <i data-lucide="send" class="w-5 h-5 mr-2"></i> Kirim
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <main class="max-w-3xl mx-auto hidden min-h-[70vh] flex flex-col items-center justify-center" id="success-container">
+        <div class="bg-white rounded-[2rem] p-10 sm:p-14 shadow-2xl border-4 border-kocak-teal text-center w-full relative overflow-hidden">
+            <!-- Dekorasi -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-kocak-red/10 rounded-full blur-xl"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-kocak-teal/10 rounded-full blur-xl"></div>
+
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                <i data-lucide="check-circle" class="w-10 h-10 text-green-500"></i>
+            </div>
+            
+            <h2 class="font-display text-4xl text-kocak-dark mb-2">Pendaftaran Berhasil!</h2>
+            <p class="text-gray-600 font-medium text-lg mb-8">Terima kasih telah mendaftar Temu KOCAK #2. Sampai jumpa di lokasi!</p>
+            
+            <div class="bg-kocak-bg border-2 border-dashed border-kocak-red rounded-2xl p-6 mb-6 flex flex-col items-center">
+                <p class="text-sm font-bold text-kocak-red mb-4 uppercase tracking-widest">Tiket & Kode Registrasi Ulang</p>
+                
+                <!-- Area QR Code -->
+                <div class="bg-white p-3 rounded-xl shadow-sm mb-4">
+                    <canvas id="qr-code" class="block"></canvas>
+                </div>
+
+                <div class="bg-white py-3 px-6 rounded-xl inline-block shadow-sm min-w-[200px]">
+                    <span id="unique-code" class="font-display text-3xl sm:text-4xl text-kocak-dark tracking-widest select-all block"></span>
+                </div>
+            </div>
+
+            <p class="text-sm text-gray-500 font-medium max-w-md mx-auto mb-8">
+                * Simpan atau screenshot halaman ini. Tunjukkan <strong>QR Code</strong> atau kode unik di atas kepada panitia saat registrasi ulang di lokasi acara.
+            </p>
+
+            <button onclick="copyCode()" id="copy-btn" class="bg-kocak-teal hover:bg-[#5a9a88] text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-all flex items-center justify-center mx-auto w-full sm:w-auto">
+                <i data-lucide="copy" class="w-5 h-5 mr-2"></i> Salin Kode Teks
+            </button>
+        </div>
+    </main>
+
+    <script>
+        // Inisialisasi ikon
+        lucide.createIcons();
+
+        // Logika untuk menampilkan/menyembunyikan input "Lainnya" dan "Judul Film"
+        const radios = document.querySelectorAll('input[name="peran"]');
+        const inputLainnya = document.getElementById('input-lainnya');
+        const inputFilmmakerContainer = document.getElementById('input-filmmaker-container');
+        const inputFilmmaker = document.getElementById('input-filmmaker');
+
+        function toggleLainnya(isLainnya) {
+            // Logika untuk "Yang lain:"
+            if (isLainnya) {
+                inputLainnya.disabled = false;
+                inputLainnya.focus();
+                inputLainnya.required = true;
+            } else {
+                inputLainnya.disabled = true;
+                inputLainnya.value = '';
+                inputLainnya.required = false;
+            }
+
+            // Logika khusus untuk opsi "FILMMAKER"
+            const selectedValue = document.querySelector('input[name="peran"]:checked')?.value;
+            if (selectedValue === 'FILMMAKER') {
+                inputFilmmakerContainer.classList.remove('hidden');
+                inputFilmmaker.required = true;
+            } else {
+                inputFilmmakerContainer.classList.add('hidden');
+                inputFilmmaker.required = false;
+                inputFilmmaker.value = '';
+            }
+        }
+
+        // Tambahkan event listener untuk radio button saat diklik langsung teksnya (agar fokus input lainnya)
+        inputLainnya.addEventListener('focus', () => {
+            document.getElementById('radio-lainnya').checked = true;
+            toggleLainnya(true);
+        });
+
+        // Logika Submit Form
+        const form = document.getElementById('registerForm');
+        const mainContainer = document.getElementById('main-container');
+        const successContainer = document.getElementById('success-container');
+        const uniqueCodeSpan = document.getElementById('unique-code');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Mencegah reload halaman
+
+            // Generate Kode Unik: Format KCK-[6 Karakter Acak]
+            const randomString = Math.random().toString(36).substring(2, 8).toUpperCase();
+            const uniqueCode = `KCK-${randomString}`;
+
+            // Tampilkan kode ke layar
+            uniqueCodeSpan.textContent = uniqueCode;
+
+            // Generate QR Code menggunakan qrious
+            new QRious({
+                element: document.getElementById('qr-code'),
+                value: uniqueCode, // Data yang akan di-scan (kode unik)
+                size: 200,         // Ukuran QR Code (px)
+                background: 'white',
+                foreground: '#1a1816', // Menggunakan warna kocak-dark
+                level: 'H'         // High error correction (lebih mudah di-scan walau sedikit rusak/buram)
+            });
+
+            // Animasi Transisi Halaman
+            mainContainer.style.opacity = '0';
+            mainContainer.style.transform = 'translateY(-20px)';
+            mainContainer.style.transition = 'all 0.5s ease';
+            
+            setTimeout(() => {
+                mainContainer.classList.add('hidden');
+                successContainer.classList.remove('hidden');
+                
+                // Trigger reflow untuk animasi masuk
+                void successContainer.offsetWidth;
+                
+                successContainer.classList.add('animate-slideUp');
+                // Scroll ke atas halaman
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
+        });
+
+        // Fungsi Salin Kode
+        function copyCode() {
+            const code = uniqueCodeSpan.textContent;
+            
+            // Menggunakan execCommand sebagai fallback jika navigator.clipboard diblokir di iFrame
+            const textArea = document.createElement("textarea");
+            textArea.value = code;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                const btn = document.getElementById('copy-btn');
+                const originalHtml = btn.innerHTML;
+                
+                btn.innerHTML = `<i data-lucide="check" class="w-5 h-5 mr-2"></i> Tersalin!`;
+                btn.classList.remove('bg-kocak-teal', 'hover:bg-[#5a9a88]');
+                btn.classList.add('bg-green-600', 'hover:bg-green-700');
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.classList.add('bg-kocak-teal', 'hover:bg-[#5a9a88]');
+                    btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    lucide.createIcons();
+                }, 2000);
+            } catch (err) {
+                console.error('Gagal menyalin text', err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>
