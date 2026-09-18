@@ -296,18 +296,47 @@
         </div>
     </main>
 
-    <script>
-        // Inisialisasi ikon
+    <!-- Menggunakan tipe module untuk integrasi Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Konfigurasi Database Firebase (Otomatis menyesuaikan dengan environment server)
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'kocak-app-default';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        let currentUser = null;
+
+        // Autentikasi koneksi database
+        async function initAuth() {
+            try {
+                if (initialAuthToken) {
+                    const userCredential = await signInWithCustomToken(auth, initialAuthToken);
+                    currentUser = userCredential.user;
+                } else {
+                    const userCredential = await signInAnonymously(auth);
+                    currentUser = userCredential.user;
+                }
+            } catch (error) {
+                console.error("Gagal terhubung ke server:", error);
+            }
+        }
+
+        // Jalankan autentikasi saat halaman dibuka
+        initAuth();
         lucide.createIcons();
 
-        // Logika untuk menampilkan/menyembunyikan input "Lainnya" dan "Judul Film"
         const radios = document.querySelectorAll('input[name="peran"]');
         const inputLainnya = document.getElementById('input-lainnya');
         const inputFilmmakerContainer = document.getElementById('input-filmmaker-container');
         const inputFilmmaker = document.getElementById('input-filmmaker');
 
         function toggleLainnya(isLainnya) {
-            // Logika untuk "Yang lain:"
             if (isLainnya) {
                 inputLainnya.disabled = false;
                 inputLainnya.focus();
@@ -318,7 +347,6 @@
                 inputLainnya.required = false;
             }
 
-            // Logika khusus untuk opsi "FILMMAKER"
             const selectedValue = document.querySelector('input[name="peran"]:checked')?.value;
             if (selectedValue === 'FILMMAKER') {
                 inputFilmmakerContainer.classList.remove('hidden');
@@ -330,22 +358,35 @@
             }
         }
 
-        // Tambahkan event listener untuk radio button saat diklik langsung teksnya (agar fokus input lainnya)
+        // Ekspos ke global agar bisa dipanggil dari event HTML
+        window.toggleLainnya = toggleLainnya;
+
         inputLainnya.addEventListener('focus', () => {
             document.getElementById('radio-lainnya').checked = true;
             toggleLainnya(true);
         });
 
-        // Logika Submit Form
         const form = document.getElementById('registerForm');
         const mainContainer = document.getElementById('main-container');
         const successContainer = document.getElementById('success-container');
         const uniqueCodeSpan = document.getElementById('unique-code');
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Mencegah reload halaman
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault(); 
             
-            // Ambil semua data dari form
+            // Tunggu sampai koneksi database siap
+            if (!currentUser) {
+                alert("Sedang menyambungkan ke server, mohon coba beberapa detik lagi.");
+                return;
+            }
+
+            // Ubah tombol jadi loading
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnHTML = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 mr-2 animate-spin"></i> Memproses...';
+            submitBtn.disabled = true;
+            lucide.createIcons();
+            
             const formData = new FormData(form);
             const userData = Object.fromEntries(formData.entries());
 
@@ -353,47 +394,52 @@
             const randomString = Math.random().toString(36).substring(2, 8).toUpperCase();
             const uniqueCode = `KCK-${randomString}`;
 
-            // Simpan data pendaftar ke LocalStorage (Simulasi Database)
-            let registeredUsers = JSON.parse(localStorage.getItem('kocak_registered_users')) || {};
-            registeredUsers[uniqueCode] = userData;
-            localStorage.setItem('kocak_registered_users', JSON.stringify(registeredUsers));
-
-            // Tampilkan kode ke layar
-            uniqueCodeSpan.textContent = uniqueCode;
-
-            // Generate QR Code menggunakan qrious
-            new QRious({
-                element: document.getElementById('qr-code'),
-                value: uniqueCode, // Data yang akan di-scan (kode unik)
-                size: 200,         // Ukuran QR Code (px)
-                background: 'white',
-                foreground: '#1a1816', // Menggunakan warna kocak-dark
-                level: 'H'         // High error correction (lebih mudah di-scan walau sedikit rusak/buram)
-            });
-
-            // Animasi Transisi Halaman
-            mainContainer.style.opacity = '0';
-            mainContainer.style.transform = 'translateY(-20px)';
-            mainContainer.style.transition = 'all 0.5s ease';
-            
-            setTimeout(() => {
-                mainContainer.classList.add('hidden');
-                successContainer.classList.remove('hidden');
+            try {
+                // Simpan data pendaftar ke Cloud Database (Firestore)
+                const registrationsRef = collection(db, 'artifacts', appId, 'public', 'data', 'registrations');
+                const docRef = doc(registrationsRef, uniqueCode);
                 
-                // Trigger reflow untuk animasi masuk
-                void successContainer.offsetWidth;
+                await setDoc(docRef, {
+                    ...userData,
+                    code: uniqueCode,
+                    createdAt: new Date().toISOString()
+                });
+
+                // Tampilkan kode ke layar & buat QR Code
+                uniqueCodeSpan.textContent = uniqueCode;
+                new QRious({
+                    element: document.getElementById('qr-code'),
+                    value: uniqueCode,
+                    size: 200,         
+                    background: 'white',
+                    foreground: '#1a1816', 
+                    level: 'H'         
+                });
+
+                // Animasi Transisi Halaman
+                mainContainer.style.opacity = '0';
+                mainContainer.style.transform = 'translateY(-20px)';
+                mainContainer.style.transition = 'all 0.5s ease';
                 
-                successContainer.classList.add('animate-slideUp');
-                // Scroll ke atas halaman
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 500);
+                setTimeout(() => {
+                    mainContainer.classList.add('hidden');
+                    successContainer.classList.remove('hidden');
+                    void successContainer.offsetWidth;
+                    successContainer.classList.add('animate-slideUp');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 500);
+
+            } catch (err) {
+                console.error("Error menyimpan ke database:", err);
+                submitBtn.innerHTML = originalBtnHTML;
+                submitBtn.disabled = false;
+                lucide.createIcons();
+                alert("Terjadi kesalahan saat menyimpan data. Coba lagi.");
+            }
         });
 
-        // Fungsi Salin Kode
-        function copyCode() {
+        window.copyCode = function() {
             const code = uniqueCodeSpan.textContent;
-            
-            // Menggunakan execCommand sebagai fallback jika navigator.clipboard diblokir di iFrame
             const textArea = document.createElement("textarea");
             textArea.value = code;
             document.body.appendChild(textArea);
